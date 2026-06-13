@@ -10,16 +10,7 @@
 - Swagger;
 - unit- и integration-тесты.
 
-## Установка
-
-1. Установите Visual Studio 2022.
-2. В Visual Studio Installer отметьте компонент **ASP.NET and web development**.
-3. Установите .NET 8 SDK.
-4. Установите Docker Desktop.
-
 ## Запуск базы данных
-
-Откройте PowerShell в папке решения:
 
 ```powershell
 docker compose up -d
@@ -27,16 +18,6 @@ docker compose up -d
 
 Основная БД: порт `5432`.
 Тестовая БД: порт `5433`.
-
-## Запуск API в Visual Studio
-
-1. Откройте `ProductCatalog.sln`.
-2. В Solution Explorer нажмите правой кнопкой по `ProductCatalog.Api`.
-3. Выберите **Set as Startup Project**.
-4. Нажмите `Ctrl+F5`.
-5. Откроется Swagger: `https://localhost:7080/swagger`.
-
-Миграции выполняются автоматически при старте.
 
 ## API
 
@@ -97,19 +78,15 @@ POST /api/categories
 
 ## Тесты
 
-Сначала выполните:
-
 ```powershell
 docker compose up -d
 ```
 
-Затем:
+потом:
 
 ```powershell
 dotnet test
 ```
-
-Либо в Visual Studio: **Test → Test Explorer → Run All Tests**.
 
 ## Архитектура
 
