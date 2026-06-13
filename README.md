@@ -88,18 +88,3 @@ docker compose up -d
 dotnet test
 ```
 
-## Архитектура
-
-```text
-Frontend
-   ↓ HTTP/JSON
-ProductsController
-   ↓
-ProductService
-   ↓
-ProductRepository
-   ↓ SQL через Dapper
-PostgreSQL
-```
-
-
