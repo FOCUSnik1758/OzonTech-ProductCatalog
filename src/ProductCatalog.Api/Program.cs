@@ -52,7 +52,13 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
+var isRunningInDocker =
+    Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
+if (!isRunningInDocker)
+{
+    app.UseHttpsRedirection();
+}
 app.UseCors("Frontend");
 app.MapControllers();
 
