@@ -75,7 +75,7 @@ public sealed class ProductRepository(NpgsqlDataSource dataSource) : IProductRep
         };
     }
 
-    public async Task<Product?> GetByIdAsync(long id, CancellationToken cancellationToken)
+    public async Task<Product?> GetByIdAsync(int id, CancellationToken cancellationToken)
     {
         const string sql = """
             SELECT
@@ -98,7 +98,7 @@ public sealed class ProductRepository(NpgsqlDataSource dataSource) : IProductRep
             new CommandDefinition(sql, new { Id = id }, cancellationToken: cancellationToken));
     }
 
-    public async Task<long> CreateAsync(
+    public async Task<int> CreateAsync(
         CreateProductRequest request,
         CancellationToken cancellationToken)
     {
@@ -110,12 +110,12 @@ public sealed class ProductRepository(NpgsqlDataSource dataSource) : IProductRep
 
         await using var connection = await dataSource.OpenConnectionAsync(cancellationToken);
 
-        return await connection.ExecuteScalarAsync<long>(
+        return await connection.ExecuteScalarAsync<int>(
             new CommandDefinition(sql, request, cancellationToken: cancellationToken));
     }
 
     public async Task<bool> UpdateAsync(
-        long id,
+        int id,
         UpdateProductRequest request,
         CancellationToken cancellationToken)
     {
@@ -146,7 +146,7 @@ public sealed class ProductRepository(NpgsqlDataSource dataSource) : IProductRep
         return affectedRows > 0;
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAsync(int id, CancellationToken cancellationToken)
     {
         const string sql = "DELETE FROM products WHERE id = @Id;";
 

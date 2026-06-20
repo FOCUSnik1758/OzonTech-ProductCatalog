@@ -18,7 +18,7 @@ public sealed class InitialSchemaMigration : Migration
             .Column("name");
 
         Create.Table("products")
-            .WithColumn("id").AsInt64().PrimaryKey().Identity()
+            .WithColumn("id").AsInt32().PrimaryKey().Identity()
             .WithColumn("name").AsString(200).NotNullable()
             .WithColumn("description").AsString(4000).NotNullable()
             .WithColumn("price").AsDecimal(18, 2).NotNullable()
