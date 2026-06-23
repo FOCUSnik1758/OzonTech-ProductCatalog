@@ -7,6 +7,7 @@ using ProductCatalog.Api.Middleware;
 using ProductCatalog.Api.Repositories;
 using ProductCatalog.Api.Services;
 using ProductCatalog.Api.Validation;
+using ProductCatalog.Api.Clients;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,16 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddHttpClient<IStorageClient, StorageClient>(client =>
+{
+    var storageBaseUrl =
+        builder.Configuration["Services:Storage:BaseUrl"]
+        ?? throw new InvalidOperationException(
+            "Storage Service BaseUrl was not configured.");
+
+    client.BaseAddress = new Uri(storageBaseUrl);
+});
 
 builder.Services
     .AddFluentMigratorCore()

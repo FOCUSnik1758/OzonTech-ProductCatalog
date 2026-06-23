@@ -19,11 +19,11 @@ public sealed class ProductsController(IProductService productService) : Control
         return Ok(await productService.SearchAsync(query, cancellationToken));
     }
 
-    [HttpGet("{id:long}")]
+    [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Product>> GetProduct(
-        long id,
+        int id,
         CancellationToken cancellationToken)
     {
         return Ok(await productService.GetByIdAsync(id, cancellationToken));
@@ -44,23 +44,23 @@ public sealed class ProductsController(IProductService productService) : Control
             product);
     }
 
-    [HttpPut("{id:long}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Product>> UpdateProduct(
-        long id,
+        int id,
         [FromBody] UpdateProductRequest request,
         CancellationToken cancellationToken)
     {
         return Ok(await productService.UpdateAsync(id, request, cancellationToken));
     }
 
-    [HttpDelete("{id:long}")]
+    [HttpDelete("{id:int}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteProduct(
-        long id,
+        int id,
         CancellationToken cancellationToken)
     {
         await productService.DeleteAsync(id, cancellationToken);
